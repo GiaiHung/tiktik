@@ -1,9 +1,15 @@
 import axios from 'axios'
-import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import NoResults from '../components/NoResults'
+import VideoCard from '../components/VideoCard'
+import { Video } from '../types'
 
-const Home: NextPage = () => {
+interface Props {
+  videos: Video[]
+}
+
+const Home = ({ videos }: Props) => {
   return (
     <>
       <Head>
@@ -11,17 +17,24 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className="text-red-500">My app</h1>
+      <div className="flex flex-col gap-10 h-full overflow-scroll">
+        {videos.length ? (
+          videos.map((video: Video) => <VideoCard post={video} key={video._id} />)
+        ) : (
+          <NoResults text="No Videos" />
+        )}
+      </div>
     </>
   )
 }
 
 export const getServerSideProps = async () => {
-  const response = await axios.get('http://localhost:3000/api/post')
-  console.log(response.data.name)
+  const { data } = await axios.get('http://localhost:3000/api/post')
 
   return {
-    props: {},
+    props: {
+      videos: data,
+    },
   }
 }
 

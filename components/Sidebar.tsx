@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -13,6 +13,17 @@ import Footer from './Footer'
 function Sidebar() {
   const [sidebarActive, setSidebarActive] = useState<boolean>(true)
   const userProfile = false
+
+  useEffect(() => {
+    const handleResize = () => {
+      if(window.innerWidth > 768) {
+        setSidebarActive(true)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <div>

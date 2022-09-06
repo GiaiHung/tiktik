@@ -6,6 +6,9 @@ import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
 import { ImCancelCircle } from 'react-icons/im'
 
 import { GoogleLogin } from 'react-google-login'
+import Discover from './Discover'
+import SuggestedAccounts from './SuggestedAccounts'
+import Footer from './Footer'
 
 function Sidebar() {
   const [sidebarActive, setSidebarActive] = useState<boolean>(true)
@@ -14,10 +17,10 @@ function Sidebar() {
   return (
     <div>
       <div
-        className="block lg:hidden m-4 cursor-pointer"
+        className="flex justify-center lg:hidden m-4 cursor-pointer text-xl"
         onClick={() => setSidebarActive((prev) => !prev)}
       >
-        {sidebarActive ? <ImCancelCircle /> : <AiOutlineMenu />}
+        {sidebarActive ? <ImCancelCircle className='text-red-500' /> : <AiOutlineMenu className='text-gray-500' />}
       </div>
       <div>
         {sidebarActive && (
@@ -50,6 +53,10 @@ function Sidebar() {
                 />
               </div>
             )}
+
+            <Discover />
+            <SuggestedAccounts />
+            <Footer />
           </div>
         )}
       </div>

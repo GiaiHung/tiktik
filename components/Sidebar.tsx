@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
 import { ImCancelCircle } from 'react-icons/im'
 
-import { GoogleLogin } from 'react-google-login'
+import { GoogleLogin } from '@react-oauth/google'
 import Discover from './Discover'
 import SuggestedAccounts from './SuggestedAccounts'
 import Footer from './Footer'
@@ -47,8 +47,8 @@ function Sidebar() {
             {!userProfile && (
               <div className="flex-col gap-3 hidden lg:flex">
                 <p className="text-gray-500 px-4">Log in to like and comment!</p>
-                <GoogleLogin
-                  clientId=""
+                {/* <GoogleLogin
+                  clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API}`}
                   render={(renderProps) => (
                     <button
                       onClick={renderProps.onClick}
@@ -61,7 +61,7 @@ function Sidebar() {
                   onSuccess={() => {}}
                   onFailure={() => {}}
                   cookiePolicy="single_host_origin"
-                />
+                /> */}
               </div>
             )}
 

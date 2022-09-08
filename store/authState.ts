@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 const authStore = (set: any) => ({
   userProfile: null,
   addUser: (user: any) => set({ userProfile: user }),
+  removeUser: () => set({ userProfile: null }),
 })
 
 // Make sure user still logged in when page reload

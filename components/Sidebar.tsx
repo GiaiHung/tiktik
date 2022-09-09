@@ -12,7 +12,6 @@ import Footer from './Footer'
 
 function Sidebar() {
   const [sidebarActive, setSidebarActive] = useState<boolean>(true)
-  const userProfile = false
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,26 +43,6 @@ function Sidebar() {
                 </div>
               </Link>
             </div>
-            {!userProfile && (
-              <div className="flex-col gap-3 hidden lg:flex">
-                <p className="text-gray-500 px-4">Log in to like and comment!</p>
-                {/* <GoogleLogin
-                  clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API}`}
-                  render={(renderProps) => (
-                    <button
-                      onClick={renderProps.onClick}
-                      disabled={renderProps.disabled}
-                      className="w-[90%] mx-auto py-3 text-gray-500 font-semibold border border-green-500 rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:text-white"
-                    >
-                      Log in
-                    </button>
-                  )}
-                  onSuccess={() => {}}
-                  onFailure={() => {}}
-                  cookiePolicy="single_host_origin"
-                /> */}
-              </div>
-            )}
 
             <Discover />
             <SuggestedAccounts />

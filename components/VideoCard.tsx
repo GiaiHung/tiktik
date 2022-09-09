@@ -30,10 +30,10 @@ const VideoCard: NextPage<Props> = ({ post }) => {
     }
   }
 
-  const { caption, comments, postedBy, likes, video } = post
+  const { _id, caption, comments, postedBy, likes, video } = post
 
   return (
-    <div className="flex flex-col border-b-2 border-gray-200 pb-6">
+    <div className="flex flex-col gap-6 border-b-2 border-gray-200 pb-6">
       {/* Video header */}
       <div>
         <div className="flex gap-3 rounded-lg p-3 cursor-pointer">
@@ -61,13 +61,13 @@ const VideoCard: NextPage<Props> = ({ post }) => {
       </div>
 
       {/* Video */}
-      <div className="flex gap-4 relative">
+      <div className="flex gap-4 relative md:ml-6">
         <div
-          className="rounded-3xl overflow-hidden mx-auto"
+          className="rounded-3xl overflow-hidden mx-auto md:mx-0"
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          <Link href="">
+          <Link href={`/detail/${_id}`}>
             <video
               src={video.asset.url}
               ref={videoRef}

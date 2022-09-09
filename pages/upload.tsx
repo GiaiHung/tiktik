@@ -1,21 +1,29 @@
 import { SanityAssetDocument } from '@sanity/client'
+import axios from 'axios'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { useState, useRef } from 'react'
 import { FaCloudUploadAlt } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import useAuthStore from '../store/authState'
 
 import { client } from '../utils/client'
+import { topics } from '../utils/constants'
 
 function Upload() {
   const [loading, setLoading] = useState(false)
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | null>(null)
+  const [caption, setCaption] = useState('')
+  const [option, setOption] = useState<string>(topics[0].name)
+  const [savingPost, setSavingPost] = useState(false)
   const [wrongTypeFile, setWrongTypeFile] = useState(false)
   const filePickerRef = useRef<any>(null)
 
+  const { userProfile }: { userProfile: any } = useAuthStore()
+  const router = useRouter()
+
   const uploadVideo = async (e: any) => {
     const selectedFiles = e.target.files[0]
-    console.log(selectedFiles)
-
     const types = ['video/mp4', 'video/webm', 'video/ogg']
 
     if (types.includes(selectedFiles.type)) {
@@ -35,6 +43,33 @@ function Upload() {
     }
   }
 
+  const handlePost = async () => {
+    if(caption && option && videoAsset?._id) {
+      setSavingPost(true)
+
+      const document = {
+        _type: 'post',
+        caption,
+        video: {
+          _type: 'file',
+          asset: {
+            _type: 'reference',
+            _ref: videoAsset._id
+          }
+        },
+        userId: userProfile?._id,
+        postedBy: {
+          _type: 'postedBy',
+          _ref: userProfile?._id
+        },
+        topic: option
+      }
+
+      await axios.post('http://localhost:3000/api/post', document)
+      router.push('/')
+    }
+  }
+
   return (
     <>
       <Head>
@@ -43,7 +78,7 @@ function Upload() {
       </Head>
 
       <div className="flex w-full h-full bg-[#F8F8F8] justify-center absolute left-0 top-[60px]">
-        <div className="flex flex-wrap gap-6 justify-center items-center bg-white rounded-lg mt-4 p-4 max-h-[550px]">
+        <div className="flex flex-wrap gap-6 justify-between items-center w-[50%] bg-white rounded-lg mt-4 p-4 max-h-[550px]">
           <div>
             <div>
               <p className="font-bold text-3xl">Upload Video</p>
@@ -103,7 +138,38 @@ function Upload() {
           </div>
 
           {/* Caption */}
-          <div>Caption</div>
+          <div>
+            <div className="flex flex-col gap-3 pb-10">
+              <label className="text-lg font-medium">Caption</label>
+              <input
+                type="text"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                className="border-2 border-gray-200 outline-none p-2 rounded-lg"
+              />
+
+              <label className="text-lg font-medium">Topics</label>
+              <select
+                className="border-2 border-gray-200 text-gray-700 text-md capitalize cursor-pointer p-2 rounded-lg outline-none"
+                onChange={(e) => setOption(e.target.value)}
+              >
+                {topics.map((topic) => (
+                  <option key={topic.name} value={topic.name}>
+                    {topic.name}
+                  </option>
+                ))}
+              </select>
+
+              <div className="flex gap-6 mt-5">
+                <button className="px-2 py-1 text-lg font-semibold w-28 rounded-lg cursor-pointer text-white bg-green-500 hover:bg-green-600" onClick={handlePost}>
+                  Post
+                </button>
+                <button className="px-2 py-1 text-lg text-white font-semibold w-28 rounded-lg cursor-pointer bg-red-500 hover:bg-red-600">
+                  Discard
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

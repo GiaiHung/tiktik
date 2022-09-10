@@ -4,9 +4,8 @@ export interface Video {
   comments: {
     comment: string
     postedBy: {
-      _id: string
-      userName: string
-      image: string
+      _type: string,
+      _ref: string
     }
     _key: string
   }[]

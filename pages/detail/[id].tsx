@@ -38,12 +38,14 @@ function Detail({ postDetails }: Props) {
   }
 
   const handleLike = async (like: boolean) => {
-    if(userProfile) {
-      const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/like`, {
+    if (userProfile) {
+      const { data } = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/like`, {
         userId: userProfile._id,
         postId: post._id,
-        like
+        like,
       })
+
+      setPost({ ...post, likes: data.likes })
     }
   }
 
@@ -138,10 +140,18 @@ function Detail({ postDetails }: Props) {
             <h2 className="text-700 text-lg p-3">{post.caption}</h2>
 
             {/* Like button */}
-            <div className="mt-4 pl-3">{userProfile && <LikeButton handleLike={() => handleLike(true)} handleDislike={() => handleLike(false)} />}</div>
+            <div className="mt-4 pl-3">
+              {userProfile && (
+                <LikeButton
+                likes={post.likes}
+                  handleLike={() => handleLike(true)}
+                  handleDislike={() => handleLike(false)}
+                />
+              )}
+            </div>
 
             {/* Comment */}
-            <Comments />
+            <Comments post={post} setPost={setPost}/>
           </div>
         </div>
       </div>

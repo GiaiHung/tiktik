@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../../utils/client'
 import { postDetailQuery } from '../../../utils/queries'
+import { uuid } from 'uuidv4'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
@@ -11,5 +12,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const data = await client.fetch(query)
 
     res.status(200).json(data[0])
+  } else if (req.method === 'PUT') {
+    const { userId, comment } = req.body
+    const { id }: any = req.query
+
+    const data = client
+      .patch(id)
+      .setIfMissing({ comments: [] })
+      .insert('after', 'comments[-1]', [
+        {
+          comment,
+          postedBy: {
+            _type: 'postedBy',
+            _ref: userId,
+          },
+          _key: uuid(),
+        },
+      ])
+      .commit()
+
+      res.status(200).json(data)
   }
 }

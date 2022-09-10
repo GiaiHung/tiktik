@@ -17,7 +17,7 @@ interface Props {
 const VideoCard: NextPage<Props> = ({ post }) => {
   const [isHover, setIsHover] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [isMuted, setIsMuted] = useState<boolean>(false)
+  const [isMuted, setIsMuted] = useState<boolean>(true)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const onVideoPress = () => {
@@ -29,6 +29,12 @@ const VideoCard: NextPage<Props> = ({ post }) => {
       setIsPlaying(true)
     }
   }
+
+  useEffect(() => {
+    if(post && videoRef.current) {
+      videoRef.current.muted = isMuted
+    }
+  }, [isMuted, post])
 
   const { _id, caption, comments, postedBy, likes, video } = post
 

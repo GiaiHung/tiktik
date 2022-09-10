@@ -72,30 +72,34 @@ const VideoCard: NextPage<Props> = ({ post }) => {
               src={video.asset.url}
               ref={videoRef}
               loop
-              className="lg:w-[600px] lg:h-[528px] md:h-[400px] h-[300px] w-[200px] rounded-2xl cursor-pointer bg-gray-100"
+              className="lg:w-[600px] lg:h-[528px] md:h-[400px] h-[300px] w-[200px] rounded-2xl cursor-pointer bg-gray-200"
             ></video>
           </Link>
 
           {isHover && (
-            <div className="absolute bottom-6 flex gap-4">
-              {isPlaying ? (
-                <button onClick={onVideoPress}>
-                  <BsFillPauseFill className="text-black text-2xl md:text-4xl cursor-pointer" />
-                </button>
-              ) : (
-                <button onClick={onVideoPress}>
-                  <BsFillPlayFill className="text-black text-2xl md:text-4xl cursor-pointer" />
-                </button>
-              )}
-              {isMuted ? (
-                <button onClick={() => setIsMuted(false)}>
-                  <HiVolumeOff className="text-black text-2xl md:text-4xl cursor-pointer" />
-                </button>
-              ) : (
-                <button onClick={() => setIsMuted(true)}>
-                  <HiVolumeUp className="text-black text-2xl md:text-4xl cursor-pointer" />
-                </button>
-              )}
+            <div className="flex gap-4 text-white">
+              <div className='absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:left-[40%]'>
+                {isPlaying ? (
+                  <button onClick={onVideoPress}>
+                    <BsFillPauseFill className="text-2xl md:text-4xl cursor-pointer" />
+                  </button>
+                ) : (
+                  <button onClick={onVideoPress}>
+                    <BsFillPlayFill className="text-2xl md:text-4xl cursor-pointer" />
+                  </button>
+                )}
+              </div>
+              <div className='absolute bottom-6 right-[20%] text-black md:right-[25%]'>
+                {isMuted ? (
+                  <button onClick={() => setIsMuted(false)}>
+                    <HiVolumeOff className="text-2xl md:text-4xl cursor-pointer" />
+                  </button>
+                ) : (
+                  <button onClick={() => setIsMuted(true)}>
+                    <HiVolumeUp className="text-2xl md:text-4xl cursor-pointer" />
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>

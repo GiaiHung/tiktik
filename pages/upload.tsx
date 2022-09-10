@@ -27,6 +27,9 @@ function Upload() {
     const types = ['video/mp4', 'video/webm', 'video/ogg']
 
     if (types.includes(selectedFiles.type)) {
+      setWrongTypeFile(false)
+      setLoading(true)
+
       client.assets
         .upload('file', selectedFiles, {
           contentType: selectedFiles.type,
@@ -65,7 +68,7 @@ function Upload() {
         topic: option
       }
 
-      await axios.post('http://localhost:3000/api/post', document)
+      await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`, document)
       router.push('/')
     }
   }
@@ -86,7 +89,7 @@ function Upload() {
             </div>
             <div className="p-10 mt-10 w-[280px] h-[400px] border-dashed border-gray-200 border-4 rounded-2xl cursor-pointer flex flex-col justify-center items-center outline-none hover:bg-gray-200 hover:border-red-300">
               {loading ? (
-                <h2>Loading...</h2>
+                <h2 className='text-2xl text-center text-gray-500 font-semibold'>Loading...</h2>
               ) : (
                 <div>
                   {videoAsset ? (

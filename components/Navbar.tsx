@@ -16,7 +16,7 @@ function Navbar() {
   const { userProfile, addUser, removeUser } = useAuthStore()
 
   return (
-    <div className="flex justify-between items-center px-6 w-full py-3 border-b-2 shadow-md border-gray-200 md:px-8 lg:px-10">
+    <div className="flex justify-between items-center px-6 w-full py-3 border-b-2 shadow-md border-gray-200 md:px-8 lg:px-10 lg:shadow-none">
       <Link href="/">
         <div className="w-[120px] md:[140px]">
           <Image src={Logo} alt="logo" layout="responsive" className="cursor-pointer" />

@@ -144,7 +144,7 @@ function Detail({ postDetails }: Props) {
                     </>
                   </Link>
                   {/* User name and caption */}
-                  <Link href="">
+                  <Link href={`/profile/${post.postedBy._id}`}>
                     <div>
                       <div className="flex gap-2 items-center">
                         <p className="text-lg md:text-2xl font-bold">

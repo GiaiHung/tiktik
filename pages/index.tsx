@@ -13,13 +13,13 @@ const Home = ({ videos }: Props) => {
   return (
     <>
       <Head>
-        <title>Tiktik</title>
+        <title>Tiktik - Make your day!</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <div className="flex flex-col gap-10 h-full overflow-scroll">
         {videos.length ? (
-          videos.map((video: Video) => <VideoCard post={video} key={video._id} />)
+          videos.map((video: Video) => <VideoCard header post={video} key={video._id} />)
         ) : (
           <NoResults text="No Videos" />
         )}

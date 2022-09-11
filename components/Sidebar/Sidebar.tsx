@@ -15,7 +15,7 @@ function Sidebar() {
 
   useEffect(() => {
     const handleResize = () => {
-      if(window.innerWidth > 768) {
+      if (window.innerWidth > 768) {
         setSidebarActive(true)
       }
     }
@@ -25,12 +25,16 @@ function Sidebar() {
   }, [])
 
   return (
-    <div>
+    <div className="h-screen overflow-scroll">
       <div
         className="flex justify-center lg:hidden m-4 cursor-pointer text-xl"
         onClick={() => setSidebarActive((prev) => !prev)}
       >
-        {sidebarActive ? <ImCancelCircle className='text-red-500' /> : <AiOutlineMenu className='text-gray-500' />}
+        {sidebarActive ? (
+          <ImCancelCircle className="text-red-500" />
+        ) : (
+          <AiOutlineMenu className="text-gray-500" />
+        )}
       </div>
       <div>
         {sidebarActive && (

@@ -32,3 +32,19 @@ export interface Video {
     }
   }
 }
+
+export interface UserI {
+  _id: string
+  _type: string
+  userName: string
+  image: string
+}
+
+export interface CommentI {
+  comment: string
+  postedBy: {
+    _id?: string
+    _ref?: string 
+  }
+  _key: string
+}

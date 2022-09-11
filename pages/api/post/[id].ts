@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../../utils/client'
 import { postDetailQuery } from '../../../utils/queries'
-import { uuid } from 'uuidv4'
+import { v4 } from 'uuid'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userId, comment } = req.body
     const { id }: any = req.query
 
-    const data = client
+    const data = await client
       .patch(id)
       .setIfMissing({ comments: [] })
       .insert('after', 'comments[-1]', [
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             _type: 'postedBy',
             _ref: userId,
           },
-          _key: uuid(),
+          _key: v4(),
         },
       ])
       .commit()

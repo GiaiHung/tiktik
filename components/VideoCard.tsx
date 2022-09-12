@@ -18,9 +18,10 @@ import VideoHeader from './VideoHeader'
 interface Props {
   post: Video
   header?: boolean
+  social?: boolean
 }
 
-const VideoCard: NextPage<Props> = ({ post: postO, header }) => {
+const VideoCard: NextPage<Props> = ({ post: postO, header, social }) => {
   const [post, setPost] = useState(postO)
   const [isHover, setIsHover] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
@@ -91,7 +92,7 @@ const VideoCard: NextPage<Props> = ({ post: postO, header }) => {
           </Link>
 
           {/* Number of likes and comments */}
-          <div className="absolute right-[3%] bottom-20 flex flex-col items-center lg:right-[10%]">
+          {social && <div className="absolute right-[3%] bottom-20 flex flex-col items-center lg:right-[10%]">
             <div className="flex flex-col items-center p-2 rounded-full bg-gray-300 cursor-pointer">
               {!alreadyLiked ? (
                 <div className="text-lg text-black" onClick={() => handleLike(true)}>
@@ -111,7 +112,7 @@ const VideoCard: NextPage<Props> = ({ post: postO, header }) => {
               <FaCommentDots className="text-xl" />
             </div>
             <p className="font-semibold text-md text-gray-500 mb-4">{comments?.length || 0}</p>
-          </div>
+          </div>}
 
           {isHover && (
             <div className="flex gap-4 text-white">

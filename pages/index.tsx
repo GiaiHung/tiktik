@@ -19,7 +19,7 @@ const Home = ({ videos }: Props) => {
 
       <div className="flex flex-col gap-10 h-full overflow-scroll">
         {videos.length ? (
-          videos.map((video: Video) => <VideoCard header post={video} key={video._id} />)
+          videos.map((video: Video) => <VideoCard header social post={video} key={video._id} />)
         ) : (
           <NoResults text="No Videos" />
         )}
@@ -28,12 +28,18 @@ const Home = ({ videos }: Props) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
+export const getServerSideProps = async ({ query: { topic } }: { query: { topic: string } }) => {
+  let response
+
+  if (topic) {
+    response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/discover/${topic}`)
+  } else {
+    response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/post`)
+  }
 
   return {
     props: {
-      videos: data,
+      videos: response.data,
     },
   }
 }

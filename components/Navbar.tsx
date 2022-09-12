@@ -13,7 +13,21 @@ import { createOrGetUser } from '../utils'
 import useAuthStore from '../store/authState'
 
 function Navbar() {
-  const { userProfile, addUser, removeUser } = useAuthStore()
+  const { userProfile, addUser, removeUser }: any = useAuthStore()
+  
+  const router = useRouter()
+
+  const [searchValue, setSearchValue] = useState<string>('')
+
+  const handleSearch = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+
+    if (searchValue) {
+      router.push(`/search/${searchValue}`)
+    }
+
+    setSearchValue('')
+  }
 
   return (
     <div className="flex justify-between items-center px-6 w-full py-3 border-b-2 shadow-md border-gray-200 md:px-8 lg:px-10 lg:shadow-none">
@@ -24,7 +38,26 @@ function Navbar() {
       </Link>
 
       {/* Search */}
-      <div>search</div>
+      <div className="relative hidden md:block">
+        <form className="absolute md:static top-10 -left-20" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search accounts and videos"
+            spellCheck={false}
+            className="bg-gray-200 p-3 pl-6 pr-[80px] md:text-md border rounded-full border-gray-100 w-[300px] md:w-[350px] focus:border-gray-300 focus:outline-none"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <button
+            className={`absolute right-5 top-3 pl-2 border-l-2 border-gray-300 text-2xl ${
+              searchValue.trim().length > 0 ? 'text-gray-500' : 'text-gray-300'
+            }`}
+            onClick={handleSearch}
+          >
+            <BiSearch />
+          </button>
+        </form>
+      </div>
 
       <div>
         {userProfile ? (
@@ -35,14 +68,12 @@ function Navbar() {
               </button>
             </Link>
             {userProfile.image && (
-              <Link href="">
-                <>
-                  <img
-                    src={userProfile.image}
-                    alt=""
-                    className="rounded-full w-10 h-10 object-cover cursor-pointer"
-                  />
-                </>
+              <Link href={`/profile/${userProfile._id}`}>
+                <img
+                  src={userProfile.image}
+                  alt=""
+                  className="rounded-full w-10 h-10 object-cover cursor-pointer"
+                />
               </Link>
             )}
             <button

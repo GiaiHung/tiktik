@@ -17,27 +17,29 @@ interface Props {
 }
 
 function Profile({ data }: Props) {
-  const { user, userLikedVideos, userVideos } = data
-
-  const [showUserVideos, setShowUserVideos] = useState('videos')
+  const [showUserVideos, setShowUserVideos] = useState<boolean>(false)
   const [videosList, setVideosList] = useState<Video[]>([])
 
-  const videos =
-    showUserVideos === 'videos'
-      ? 'border-b-2 border-black text-black'
-      : 'text-gray-400 border-gray-200'
-  const liked =
-    showUserVideos === 'liked'
-      ? 'border-b-2 border-black text-black'
-      : 'text-gray-400 border-gray-200'
+  const { user, userLikedVideos, userVideos } = data
+
+  const videos = showUserVideos
+    ? 'border-b-2 border-black text-black'
+    : 'text-gray-400 border-gray-200'
+  const liked = !showUserVideos
+    ? 'border-b-2 border-black text-black'
+    : 'text-gray-400 border-gray-200'
 
   useEffect(() => {
-    if (showUserVideos === 'videos') {
-      setVideosList(userVideos)
-    } else if (showUserVideos === 'liked') {
-      setVideosList(userLikedVideos)
+    const fetchVideos = async () => {
+      if (showUserVideos) {
+        setVideosList(userVideos)
+      } else {
+        setVideosList(userLikedVideos)
+      }
     }
-  }, [showUserVideos, userVideos, userLikedVideos])
+
+    fetchVideos()
+  }, [showUserVideos, userLikedVideos, userVideos])
 
   return (
     <>
@@ -74,24 +76,24 @@ function Profile({ data }: Props) {
         <div>
           <div className="flex gap-4 mt-6 mb-10 ml-2 border-b-2 border-gray-200">
             <button
-              className={`cursor-pointer text-lg font-bold ${videos}`}
-              onClick={() => setShowUserVideos('videos')}
-            >
-              Videos
-            </button>
-            <button
               className={`cursor-pointer text-lg font-bold ${liked}`}
-              onClick={() => setShowUserVideos('liked')}
+              onClick={() => setShowUserVideos(false)}
             >
               Liked
+            </button>
+            <button
+              className={`cursor-pointer text-lg font-bold ${videos}`}
+              onClick={() => setShowUserVideos(true)}
+            >
+              Videos
             </button>
           </div>
 
           <div className="flex flex-gap-6 flex-wrap justify-center md:justify-start">
             {videosList.length > 0 ? (
-              videosList.map((video, index) => <VideoCard key={index} post={video} />)
+              videosList.map((post: Video, idx: number) => <VideoCard key={idx} post={post} />)
             ) : (
-              <NoResults text={`No ${showUserVideos === 'liked' ? 'liked' : ''} videos yet`} />
+              <NoResults text={`No ${showUserVideos ? '' : 'Liked'} Videos Yet`} />
             )}
           </div>
         </div>
@@ -100,8 +102,8 @@ function Profile({ data }: Props) {
   )
 }
 
-export async function getServerSideProps({ params: { id } }: { params: { id: string } }) {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile/${id}`)
+export async function getServerSideProps({ params: { userId } }: { params: { userId: string } }) {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/profile/${userId}`)
 
   return {
     props: {

@@ -16,8 +16,6 @@ interface Props {
 function Comments({ comments, comment, isPosting, setComment, addComment }: Props) {
   const { allUsers, userProfile }: any = useAuthStore()
 
-  console.log(comments);
-  
   return (
     <div>
       <div className="lg:border-t lg:border-b border-gray-200 mt-3 pt-4 pl-12 bg-gray-100">

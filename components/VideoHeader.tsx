@@ -9,7 +9,7 @@ interface Props {
     userName: string
     image: string
   }
-  caption: string
+  caption?: string
 }
 
 function VideoHeader({ postedBy, caption }: Props) {
@@ -17,7 +17,7 @@ function VideoHeader({ postedBy, caption }: Props) {
     <div className="flex gap-3 rounded-lg p-3 cursor-pointer">
       {/* Avatar */}
       <Link href={`/profile/${postedBy._id}`}>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
           <img
             src={postedBy.image}
             alt=""
@@ -30,7 +30,7 @@ function VideoHeader({ postedBy, caption }: Props) {
               <p className="text-md md:text-lg font-bold">{postedBy.userName}</p>
               <GoVerified className="text-md text-blue-500" />
             </div>
-            <p className="text-lg text-gray-700 break-normal">{caption}</p>
+            {caption && <p className="text-lg text-gray-700 break-normal">{caption}</p>}
           </div>
         </div>
       </Link>

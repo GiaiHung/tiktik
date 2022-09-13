@@ -19,7 +19,9 @@ const Home = ({ videos }: Props) => {
 
       <div className="flex flex-col gap-10 h-full overflow-scroll">
         {videos.length ? (
-          videos.map((video: Video) => <VideoCard header social post={video} key={video._id} />)
+          videos.map((video: Video) => (
+            <VideoCard header social center post={video} key={video._id} />
+          ))
         ) : (
           <NoResults text="No Videos" />
         )}

@@ -80,9 +80,9 @@ function Upload() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex w-full h-full bg-[#F8F8F8] justify-center absolute left-0 top-[60px]">
-        <div className="flex flex-wrap gap-6 justify-between items-center w-[50%] bg-white rounded-lg mt-4 p-4 max-h-[550px]">
-          <div>
+      <div className="flex w-full h-full bg-[#F8F8F8] justify-center absolute left-0 top-[60px] overflow-scroll">
+        <div className="flex flex-wrap gap-6 justify-between items-center w-[55%] bg-white rounded-lg mt-4 p-4 max-h-[550px] min-w-[360px]">
+          <div className='mx-auto lg:mx-0'>
             <div>
               <p className="font-bold text-3xl">Upload Video</p>
               <p className="text-gray-400 text-md mt-2">Post a video to your account!</p>
@@ -141,7 +141,7 @@ function Upload() {
           </div>
 
           {/* Caption */}
-          <div>
+          <div className='pb-10 mx-auto lg:mx-0 lg:pb-0'>
             <div className="flex flex-col gap-3 pb-10">
               <label className="text-lg font-medium">Caption</label>
               <input

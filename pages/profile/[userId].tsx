@@ -53,18 +53,18 @@ function Profile({ data }: Props) {
           <Image
             src={user.image}
             alt=""
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             layout="fixed"
             className="rounded-full cursor-pointer object-cover"
           />
 
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <h2 className="text-4xl font-bold tracking-wider">
+              <h2 className="text-2xl font-bold tracking-wider lg:text-4xl">
                 {user.userName.split(' ').join('').toLocaleLowerCase()}
               </h2>
-              <GoVerified className="text-2xl text-blue-400" />
+              <GoVerified className="text-xl text-blue-400 lg:text-2xl" />
             </div>
             <p className="text-lg text-gray-700 font-semibold">{user.userName}</p>
             <button className="bg-red-500 text-white text-lg py-1 cursor-pointer rounded-lg hover:bg-red-600">

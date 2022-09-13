@@ -20,10 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API}`}>
       <div className="lg:w-[1200px] mx-auto overflow-hidden h-screen">
         <Navbar />
-        <div className="flex gap-6 md:gap-20">
-          <div className="h-[92vh] overflow-hidden ">
-            <Sidebar />
-          </div>
+        <div className="flex md:gap-20">
+          <Sidebar />
           <div className="h-[88vh] flex-1 mt-4 flex flex-col overflow-auto videos">
             <Component {...pageProps} />
           </div>

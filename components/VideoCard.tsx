@@ -19,6 +19,7 @@ interface Props {
   post: Video
   header?: boolean
   social?: boolean
+  center?: boolean
 }
 
 const VideoCard: NextPage<Props> = ({ post: postO, header, social }) => {
@@ -73,7 +74,7 @@ const VideoCard: NextPage<Props> = ({ post: postO, header, social }) => {
 
   return (
     <div className="flex flex-col gap-6 border-b-2 border-gray-200 pb-6">
-      {header && <VideoHeader postedBy={postedBy} caption={caption} />}
+      {header && <VideoHeader postedBy={postedBy} caption={caption} center/>}
 
       {/* Video */}
       <div className="flex gap-4 relative md:ml-6">

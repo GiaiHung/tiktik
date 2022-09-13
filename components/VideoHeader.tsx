@@ -10,11 +10,12 @@ interface Props {
     image: string
   }
   caption?: string
+  center?: boolean
 }
 
-function VideoHeader({ postedBy, caption }: Props) {
+function VideoHeader({ postedBy, caption, center }: Props) {
   return (
-    <div className="flex gap-3 rounded-lg p-3 cursor-pointer">
+    <div className={`flex gap-3 rounded-lg p-3 cursor-pointer ${center && 'mx-auto'} lg:mx-0`}>
       {/* Avatar */}
       <Link href={`/profile/${postedBy._id}`}>
         <div className="flex gap-4 items-center">

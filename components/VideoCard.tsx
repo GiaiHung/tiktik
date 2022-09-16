@@ -30,7 +30,7 @@ const VideoCard: NextPage<Props> = ({ post: postO, header, social }) => {
   const { userProfile }: any = useAuthStore()
 
   const { _id, caption, comments, postedBy, likes, video } = post
-  const isUserLiked = likes?.filter((item) => item._ref === userProfile._id)
+  const isUserLiked = likes?.filter((item) => item._ref === userProfile?._id)
 
   // Play, pause
   const handlePlayPause = () => {

@@ -52,7 +52,7 @@ function Comments({ comments, comment, isPosting, setComment, addComment }: Prop
 
       {userProfile && (
         <form
-          className="flex items-center gap-4 lg:ml-10 lg:mt-4 sticky bottom-0 z-50 bg-white"
+          className="flex items-center gap-4 lg:ml-10 lg:mt-4 bg-white"
           onSubmit={addComment}
         >
           <input

@@ -17,9 +17,9 @@ function SuggestedAccounts() {
     <div className="ml-4 py-2 border-b border-gray-200">
       <p className="hidden text-lg font-semibold text-gray-500 lg:block">Suggested accounts</p>
 
-      <div>
-        {allUsers.slice(0, 6).map((user: UserI) => (
-          <Link href={`/profile/${user._id}`} key={user._id}>
+      {allUsers &&
+        allUsers.slice(0, 6).map((user: UserI) => (
+          <a href={`/profile/${user._id}/like`} key={user._id}>
             <div className="flex items-center gap-3 mb-4 p-0 cursor-pointer hover:bg-white lg:p-2 lg:mb-2 lg:hover:bg-primary">
               <div className="w-10 h-10">
                 <Image
@@ -39,9 +39,8 @@ function SuggestedAccounts() {
                 </p>
               </div>
             </div>
-          </Link>
+          </a>
         ))}
-      </div>
     </div>
   )
 }

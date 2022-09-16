@@ -18,7 +18,7 @@ function Comments({ comments, comment, isPosting, setComment, addComment }: Prop
 
   return (
     <div>
-      <div className="lg:border-t lg:border-b border-gray-200 mt-3 pt-4 pl-12 bg-gray-100">
+      <div className="lg:border-t lg:border-b border-gray-200 mt-3 pt-4 lg:pl-12 bg-white lg:bg-gray-100">
         <div className="h-[250px] overflow-scroll">
           {comments?.length > 0 ? (
             <div>
@@ -52,7 +52,7 @@ function Comments({ comments, comment, isPosting, setComment, addComment }: Prop
 
       {userProfile && (
         <form
-          className="flex items-center gap-4 ml-10 lg:mt-4 sticky bottom-0 z-50 bg-white"
+          className="flex items-center gap-4 lg:ml-10 lg:mt-4 sticky bottom-0 z-50 bg-white"
           onSubmit={addComment}
         >
           <input

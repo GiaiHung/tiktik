@@ -9,20 +9,18 @@ import { BiSearch } from 'react-icons/bi'
 import { IoMdAdd } from 'react-icons/io'
 
 import Logo from '../utils/tiktik-logo.png'
-import { createOrGetUser } from '../utils'
 import useAuthStore from '../store/authState'
+import createOrGetUser from '../utils'
 
 function Navbar() {
   const { userProfile, addUser, removeUser }: any = useAuthStore()
-  
-  const router = useRouter()
-
   const [searchValue, setSearchValue] = useState<string>('')
+  const router = useRouter()
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
-    if (searchValue) {
+    if(searchValue.trim().length > 0) {
       router.push(`/search/${searchValue}`)
     }
 
@@ -50,7 +48,7 @@ function Navbar() {
           />
           <button
             className={`absolute right-5 top-3 pl-2 border-l-2 border-gray-300 text-2xl ${
-              searchValue.trim().length > 0 ? 'text-gray-500' : 'text-gray-300'
+              searchValue.trim().length > 0 ? 'text-black' : 'text-gray-500'
             }`}
             onClick={handleSearch}
           >
@@ -59,41 +57,42 @@ function Navbar() {
         </form>
       </div>
 
-      <div>
-        {userProfile ? (
-          <div className="flex items-center gap-4">
-            <Link href="/upload">
-              <button className="flex items-center gap-2 border-2 font-semibold rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-100">
-                <IoMdAdd className="text-lg" /> <span className="hidden md:block">Upload</span>
-              </button>
-            </Link>
-            {userProfile.image && (
-              <Link href={`/profile/${userProfile._id}`}>
-                <img
-                  src={userProfile.image}
-                  alt=""
-                  className="rounded-full w-10 h-10 object-cover cursor-pointer"
-                />
-              </Link>
-            )}
-            <button
-              onClick={() => {
-                googleLogout()
-                removeUser()
-              }}
-            >
-              <AiOutlineLogout className="text-3xl text-red-500 cursor-pointer hover:text-red-700" />
+      {/* User login and upload */}
+      {userProfile ? (
+        <div className="flex items-center gap-4">
+          <Link href="/upload">
+            <button className="flex items-center gap-2 border-2 font-semibold rounded-lg px-2 py-1 cursor-pointer hover:bg-gray-100">
+              <IoMdAdd className="text-lg" /> <span className="hidden md:block">Upload</span>
             </button>
-          </div>
-        ) : (
+          </Link>
+          {userProfile.image && (
+            <a href={`/profile/${userProfile._id}/like`}>
+              <img
+                src={userProfile.image}
+                alt=""
+                className="rounded-full w-10 h-10 object-cover cursor-pointer"
+              />
+            </a>
+          )}
+          <button
+            onClick={() => {
+              googleLogout()
+              removeUser()
+            }}
+          >
+            <AiOutlineLogout className="text-3xl text-red-500 cursor-pointer hover:text-red-700" />
+          </button>
+        </div>
+      ) : (
+        <div>
           <div>
             <GoogleLogin
               onSuccess={(response) => createOrGetUser(response, addUser)}
               onError={() => console.log('Error')}
             />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

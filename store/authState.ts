@@ -18,7 +18,7 @@ const authStore = (set: any) => ({
 // Make sure user still logged in when page reload
 const useAuthStore = create(
   persist(authStore, {
-    name: 'auth',
+    name: 'user',
   })
 )
 

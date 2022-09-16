@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
 import { ImCancelCircle } from 'react-icons/im'
 
-import { GoogleLogin } from '@react-oauth/google'
 import Discover from './Discover'
 import SuggestedAccounts from './SuggestedAccounts'
 import Footer from './Footer'
 
 function Sidebar() {
-  const [sidebarActive, setSidebarActive] = useState<boolean>(false)
+  const [sidebarActive, setSidebarActive] = useState<boolean>(true)
 
   const slide = '!translate-x-0 !opacity-1'
 
@@ -36,7 +33,7 @@ function Sidebar() {
       </div>}
       
       <div
-        className={`h-screen overflow-scroll -translate-x-full ${sidebarActive && slide} ease-in-out duration-150`}
+        className={`h-screen overflow-scroll -translate-x-full ${sidebarActive && slide} ease-in-out duration-150 border-r border-gray-200`}
       >
         <div
           className="flex justify-center lg:hidden m-4 cursor-pointer text-xl"
@@ -46,7 +43,7 @@ function Sidebar() {
         </div>
         <div>
           {sidebarActive && (
-            <div className="w-20 border-r border-gray-200 flex flex-col justify-start mb-14 lg:w-350">
+            <div className="w-20 flex flex-col justify-start mb-14 lg:w-350">
               <div>
                 <Link href="/">
                   <div className="normalLink">

@@ -35,7 +35,7 @@ function LikeButton({ likes, handleLike, handleDislike }: Props) {
         )}
       </div>
 
-      <p className="font-semibold">{likes?.length || 0}</p>
+      <p className="font-semibold">{likes.length || 0}</p>
     </div>
   )
 }

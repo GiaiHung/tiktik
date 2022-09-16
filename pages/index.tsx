@@ -18,12 +18,12 @@ const Home = ({ videos }: Props) => {
       </Head>
 
       <div className="flex flex-col gap-10 h-full overflow-scroll">
-        {videos.length ? (
+        {videos.length > 0 ? (
           videos.map((video: Video) => (
-            <VideoCard header social center post={video} key={video._id} />
+            <VideoCard key={video._id} post={video} header social center />
           ))
         ) : (
-          <NoResults text="No Videos" />
+          <NoResults text="No videos" />
         )}
       </div>
     </>

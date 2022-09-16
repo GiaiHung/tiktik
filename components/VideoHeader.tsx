@@ -17,7 +17,7 @@ function VideoHeader({ postedBy, caption, center }: Props) {
   return (
     <div className={`flex gap-3 rounded-lg p-3 cursor-pointer ${center && 'mx-auto'} lg:mx-0`}>
       {/* Avatar */}
-      <Link href={`/profile/${postedBy._id}`}>
+      <a href={`/profile/${postedBy._id}/like`}>
         <div className="flex gap-4 items-center">
           <img
             src={postedBy.image}
@@ -34,7 +34,7 @@ function VideoHeader({ postedBy, caption, center }: Props) {
             {caption && <p className="text-lg text-gray-700 break-normal">{caption}</p>}
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   )
 }
